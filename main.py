@@ -313,8 +313,8 @@ def utama():
     print("Selamat Datang!")
     print("MESIN KASIR BASIS CLI 'CLIKAS'")
     print("Dibuat Oleh:")
-    print("Muhammad Iqbal")
-    print("(5312421026)")
+    print("Muhammad Fauzan ramadhan")
+    print("")
     Berulang = True
     while Berulang : 
         login()
