@@ -32,10 +32,10 @@ def rapikan(input, panjang_tempat, tipe = "tengah"):
 def build(list_barang, yangDibayarkan = 0):
     clearCli()
     header = "||"+rapikan("No", 6)+"|"+rapikan("ID Barang", 13)+"|"+rapikan("Nama Barang", 25)+"|"+rapikan("Harga Satuan", 16)+"|"+rapikan("Kuantitas Barang", 20)+"|"+rapikan("Total Harga", 15)+"||"
-    print(rapikan("MESIN KASIR BASIS CLI 'CLIKAS'", len(header)))
+    print(rapikan("Mesin Kasir Sederhana", len(header)))
     print(rapikan("Dibuat oleh", len(header)))
-    print(rapikan("Muhammad Iqbal", len(header)))
-    print(rapikan("(5312421026)", len(header)))
+    print(rapikan("Kelompok 8 Tugas Besar Pengenalan Komputasi", len(header)))
+    print(rapikan("Salsabila Widi Azzahra 16023191, Nafisa Bunga Sunarya 16023196, Muhammad Fauzan Ramadhan 16023201, Magnalia Beatifica Dei 16023206, Aurel Zalfa Prilia 16023211", len(header)))
     print("="*len(header))
     print(header)
     print("-"*len(header))
