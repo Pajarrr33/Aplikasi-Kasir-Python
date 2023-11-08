@@ -41,12 +41,12 @@ def build(list_barang, yangDibayarkan = 0):
     print("-"*len(header))
     totalBayar = 0
     banyakBarang = 0
-    print(list_barang[0])
     for i,x in enumerate(list_barang):
-        kuantitas = x[5]
+        kuantitas = int(x[5])
         i+=1
         konten = "||"+rapikan(penambahNol(i), 6)+"|"+rapikan(str(x[0]), 13, 'kiri')+"|"+rapikan(x[1], 25, 'kiri')+"|"+rapikan(locale.format_string("%d", int(x[2]), grouping=True), 16, 'kanan')+"|"+rapikan(penambahNol(kuantitas), 20)+"|"+rapikan(locale.format_string("%d", x[2]*kuantitas, grouping=True), 15, 'kanan')+"||"
         totalBayar += int(x[2]*kuantitas)
+        print(totalBayar)
         banyakBarang += x[5]
         print(konten)
     print("="*len(header))
@@ -65,6 +65,8 @@ def build(list_barang, yangDibayarkan = 0):
             msg = "Hutang"
         print(rapikan(msg, 20, "kiri"),":", "Rp.",rapikan(locale.format_string("%d", kembalian, grouping=True), 15, "kanan")+ ",-")
         print(rapikan("==Transaksi Selesai==", len(header)))
+
+
         for i,x in enumerate(list_barang) :
             PenguranganStock = x[4] - int(x[5])
             x[4] = PenguranganStock
@@ -81,6 +83,7 @@ def build(list_barang, yangDibayarkan = 0):
 
         if not transaction:
             invoice_number = "INV0001"
+            nomor_invoice_baru = invoice_number
         else:
             max_invoice = max(transaction, key=lambda x: int(x[0][3:]))[0]
             nomor_invoice_tertinggi = max_invoice if max_invoice else "INV0001"
@@ -88,11 +91,17 @@ def build(list_barang, yangDibayarkan = 0):
             nomor_invoice += 1
             nomor_invoice_baru = f"INV{nomor_invoice:03d}"
 
+        
         # Mendapatkan tanggal hari ini
         tanggal_hari_ini = datetime.date.today()
 
         # Memformat tanggal dalam format "dd/mm/yyyy"
         tanggal_terformat = tanggal_hari_ini.strftime("%d/%m/%Y")
+
+        # Inside your code where you read `totalBayar` from the file
+        totalBayar_str = totalBayar # Read the string
+        totalBayar_str = totalBayar_str.replace(',',',').replace('.','')  # Remove thousands separators and the decimal point
+        totalBayar = int(totalBayar_str)  # Convert to an integer
 
         transaction_hariIni = [nomor_invoice_baru, tanggal_terformat, totalBayar]
 
@@ -104,5 +113,8 @@ def build(list_barang, yangDibayarkan = 0):
             for item in transaction:
                 line = ",".join(map(str, item))
                 file.write(line + "\n")
+        
+        return True
+
     else:
         print("Total bayar sementara:","Rp.", locale.format_string("%d", totalBayar, grouping=True)+ ",-")

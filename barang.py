@@ -15,7 +15,7 @@ class list_barang:
         [892227935562,'Air Mineral M', 6000,'Sembako',123],
         [888111558814,'Air Mineral S', 3000,'Sembako',123],
         [896461272156,'Buku Tulis', 1500,'Alat Tulis',123],
-        [893030280149,'Sampo Saset', 500,'Kosmetik',123],
+        [893030280149,'Sampo Saset', 1000,'Kosmetik',123],
         [891847933160,'Sampo Botol', 9000,'Kosmetik',123],
         [891903686090,'Pengaris Plastik', 1000,'Alat Tulis',123],
         [895483399483,'Pengaris Metal', 5000,'Alat Tulis',123],
@@ -56,6 +56,24 @@ def tambah(id_produk,nama_produk,harga,kategori,stock):
     print("Barang Berhasil ditambahkan")
     print("="*30)
     return True
+
+def tambah_stock(nama_produk):
+    for item in list_barang.list:
+         if item[1] == nama_produk:
+            print("="*30)
+            print("ID barang :" , item[0])
+            print("Nama Barang :" , item[1])
+            print("Harga Barang :" , item[2])
+            print("Kategori Barang :" , item[3])
+            print("Stock :" , item[4])
+            print("="*30)
+            TambahStock = int(float(input("Masukan Jumlah Stock Yang ingin anda tambahkan :")))
+            item[4] += TambahStock
+            print("Stock Berhasil Ditambahkan")
+            print("="*30)
+            return True
+
+
 
 def kurangstock(x):
     for item in list_barang.list:

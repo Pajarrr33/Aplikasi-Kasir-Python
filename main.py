@@ -34,6 +34,7 @@ def handel_pilihan_kustom():
     YangDibeli.append(dataKustom)
 
 def handel_pilihan_basis_data():
+    hasilPencarian = []
     indeksPencarian = input("Masukan Nama Barang / ID-nya!\n")
     hasilPencarian = barang.cari(indeksPencarian)
     if hasilPencarian:
@@ -94,19 +95,53 @@ def tambah_barang():
     else :
         tambah_barang()
 
+def tambah_stock():
+    print("="*30)
+    print("Menu Tambah Stock")
+    print("="*30)
 
-def penambahan_barang():
-    tipeInput = input("Cari barang atau masukan kustom?\n(Cari isi 1, kustom isi 0)\n")
-    if(int(tipeInput) == 1):
-        handel_pilihan_basis_data()
-    else: 
-        handel_pilihan_kustom()
-    ui.build(YangDibeli)
+    ProductName = input("Masukan nama barang yang ingin ditambah stocknya :")
+
+    # Call the add_item method to add the new item to the array
+    Tambah_barang = barang.tambah_stock(ProductName)
+    if Tambah_barang == True:
+        BarangBerulang = input("Apakah anda ingin menambahkan Stock lagi?(y/n) :")
+        if BarangBerulang == "y" :
+            tambah_stock()
+        else :
+            ProdukBerulang = True
+    else :
+        print("Maaf barang tidak terdaftar di basis data.")
+        BarangBerulang = input("Apakah anda ingin menambahkan Stock lagi?(y/n) :")
+        if BarangBerulang == "y" :
+            tambah_stock()
+        else :
+            ProdukBerulang = True
+
+
+
+def penambahan_barang(cek = False):
+    if cek == False : 
+        YangDibeli.clear()
+        tipeInput = input("Cari barang atau masukan kustom?\n(Cari isi 1, kustom isi 0)\n")
+        if(int(tipeInput) == 1):
+            handel_pilihan_basis_data()
+        else: 
+            handel_pilihan_kustom()
+        ui.build(YangDibeli)
+    else :
+        tipeInput = input("Cari barang atau masukan kustom?\n(Cari isi 1, kustom isi 0)\n")
+        if(int(tipeInput) == 1):
+            handel_pilihan_basis_data()
+        else: 
+            handel_pilihan_kustom()
+        ui.build(YangDibeli)
 def tambahAkhiri():
     kataTAA = "Lanjut menambahakan barang(1) atau akhiri(0)?\n"
     tambahAtauAkhiri = int(input(kataTAA))
     while tambahAtauAkhiri == 1:
-        penambahan_barang()
+        cek = True
+        penambahan_barang(cek)
         tambahAtauAkhiri = int(input(kataTAA))
     if len(YangDibeli) < 1:
         utama()
@@ -116,7 +151,7 @@ def tambahAkhiri():
         ui.build(YangDibeli)
         return tambahAkhiri()
     uangYgDibayar = int(input("Berapa uang yang dibayarkan?\n"))
-    ui.build(YangDibeli,uangYgDibayar)
+    cek = ui.build(YangDibeli,uangYgDibayar)
     return 0
 
 
@@ -214,14 +249,13 @@ def history_transaksi():
 
     # Menghitung total pendapatan dari transaksi
     total_pendapatan = hitung_total_pendapatan(transaksi)
-    total_pendapatan_terformat = "{:,.3f}".format(total_pendapatan)
-
+    total_pendapatan_terformat = locale.format_string("%d", total_pendapatan, grouping=True)
     print("="*30)
     print("Laporan Transaksi Kesuluruhan")
     print("="*30)
     # Menampilkan data transaksi
     for item in transaksi:
-        print("Invoice :", item[0] , "Tanggal :" ,item[1], "Total :" ,item[2])
+        print("Invoice :", item[0] , "Tanggal :" ,item[1], "Total :" ,locale.format_string("%d", int(item[2]), grouping=True))
         print("="*30)
 
     print("Total Pendapatan :", total_pendapatan_terformat)
@@ -269,6 +303,7 @@ def menu():
                 print("0. Keluar")
                 print("1. Cek Barang")
                 print("2. Tambah Barang")
+                print("3. Tambah Stock barang")
                 print("="*30)
                 ProdukMenu = int(float(input("Masukan Menu yang anda inginkan :")))
                 if  ProdukMenu == 0:
@@ -277,6 +312,8 @@ def menu():
                     cari_barang()
                 elif ProdukMenu == 2:
                     tambah_barang()
+                elif ProdukMenu == 3 :
+                    tambah_stock()
                 else :
                     print("="*30)
                     print("Menu yang anda masukan salah silahkan coba lagi!")
