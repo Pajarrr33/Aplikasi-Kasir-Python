@@ -24,12 +24,18 @@ def cek_duplikasi(triger):
     return triger
 
 def handel_pilihan_kustom():
-    dataKustom = ["===Kustom!==="]
+    dataKustom = []
+    idBarang = int(input("Apa ID barangnya?\n"))
     namaBarang = input("Apa nama barangnya?\n")
     hargaBarang = int(input("Berapa harga barangnya?\n"))
-    kuantitasBarang = float(input("Berapa banyak yang dibeli?\n"))
+    KategoriBarang = input("Apa Kategori Barangnya?\n")
+    StockBarang = int(input("Berapa Stock Totalnya?\n"))
+    kuantitasBarang = int(input("Berapa banyak yang dibeli?\n"))
+    dataKustom.append(idBarang)
     dataKustom.append(namaBarang)
     dataKustom.append(hargaBarang)
+    dataKustom.append(KategoriBarang)
+    dataKustom.append(StockBarang)
     dataKustom.append(kuantitasBarang)
     YangDibeli.append(dataKustom)
 
